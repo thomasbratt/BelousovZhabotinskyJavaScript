@@ -1,16 +1,16 @@
 HodgePodgeJavaScript
 ====================
 
-A JavaScript version of a Windows screensaver, which can be found at:
+A JavaScript animation inspired by a chemical reaction called the 
+Belousov–Zhabotinsky reaction. The reaction is described as a nonlinear
+chemical oscillator, which sums it up fairly well.
+
+The code is based on a Windows screensaver, which can be found at:
 
     https://github.com/thomasbratt/HodgePodgeScreenSaver
     
 The animation uses the HTML 5 Canvas tag, which may not work well with
 some legacy browser versions.
-
-The animation is inspired by a chemical reaction called the 
-Belousov–Zhabotinsky reaction. The reaction is described as a nonlinear
-chemical oscillator, which sums it up fairly well.
 
 The algorithm used in the animation is described in Gary William Flake's
 book *The Computational Beauty of Nature*. The animation is based on
