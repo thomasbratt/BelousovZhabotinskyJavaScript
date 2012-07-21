@@ -2,7 +2,7 @@ HodgePodgeJavaScript
 ====================
 
 A JavaScript animation inspired by a chemical reaction called the 
-Belousov�Zhabotinsky reaction. The reaction is described as a nonlinear
+Belousov-Zhabotinsky reaction. The reaction is described as a nonlinear
 chemical oscillator, which sums it up fairly well.
 
 The code is based on a Windows screensaver, which can be found at:
@@ -19,11 +19,11 @@ this description, although C code is available (see references section).
 References
 ----------
 
-https://ccrma.stanford.edu/CCRMA/Courses/220b/Lectures/6/Examples/cbn/code/src/hp.c
-https://github.com/thomasbratt/HodgePodgeScreensaver
-http://mitpress.mit.edu/books/flaoh/cbnhtml/toc.html
-http://www.youtube.com/watch?v=bH6bRt4XJcw
-http://en.wikipedia.org/wiki/Belousov%E2%80%93Zhabotinsky_reaction
+* https://ccrma.stanford.edu/CCRMA/Courses/220b/Lectures/6/Examples/cbn/code/src/hp.c
+* https://github.com/thomasbratt/HodgePodgeScreensaver
+* http://mitpress.mit.edu/books/flaoh/cbnhtml/toc.html
+* http://www.youtube.com/watch?v=bH6bRt4XJcw
+* http://en.wikipedia.org/wiki/Belousov%E2%80%93Zhabotinsky_reaction
 
 License
 -------
