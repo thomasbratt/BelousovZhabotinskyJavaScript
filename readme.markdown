@@ -3,7 +3,7 @@ HodgePodgeJavaScript
 
 A JavaScript version of a Windows screensaver, which can be found at:
 
-    https://github.com/thomasbratt/HodgePodgeScreensaver
+    https://github.com/thomasbratt/HodgePodgeScreenSaver
     
 The animation uses the HTML 5 Canvas tag, which may not work well with
 some legacy browser versions.
