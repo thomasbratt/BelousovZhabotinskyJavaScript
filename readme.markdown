@@ -20,10 +20,10 @@ References
 ----------
 
 https://ccrma.stanford.edu/CCRMA/Courses/220b/Lectures/6/Examples/cbn/code/src/hp.c
-http://en.wikipedia.org/wiki/Belousov%E2%80%93Zhabotinsky_reaction
+https://github.com/thomasbratt/HodgePodgeScreensaver
 http://mitpress.mit.edu/books/flaoh/cbnhtml/toc.html
 http://www.youtube.com/watch?v=bH6bRt4XJcw
-https://github.com/thomasbratt/HodgePodgeScreensaver
+http://en.wikipedia.org/wiki/Belousov%E2%80%93Zhabotinsky_reaction
 
 License
 -------
