@@ -2,79 +2,93 @@
 // Simulates a Cellular Automata using a browser canvas.
 // The Cellular Automata is a HodgePodge machine, with parameters chosen so
 // that the patterns generated are roughly circular.
+//
+// Parameters:
+//
+//  canvas          : The canvas DOM element.
+//  numberOfStates  : The number of states in the cellular automata.
+//  k1              : Controls infection rate of healthy cells by damping the
+//                    effect of infected neighbours.
+//  k2              : Controls infection rate of healthy cells by damping the
+//                    effect of ill neighbours.
+//  g               : Controls progress of infected cells.
 // ----------------------------------------------------------------------------
 
-var hodgePodge = {
+var HodgePodge = function(  canvas,
+                            numberOfStates,
+                            k1,
+                            k2,
+                            g){
     
     // Mutable state.
-    statesCurrent : [],
-    statesNext : [],
-    width : 0,
-    height : 0,
-    size : 0,
-    
-    // Constants.
-    NumberOfStates : 100.0,
-    K1 : 1.0,
-    K2 : 1.5,
-    G : 34.0,
-    
-    // The method that starts the animation.
-    Start : function(){
-  
-        var canvas = document.getElementById('canvas');
-        this.width = canvas.width;
-        this.height = canvas.height;
-        this.size = this.width * this.height;
+    var _statesCurrent = [],
+        _statesNext = [],
+        _width = 0,
+        _height = 0,
+        _size = 0;
 
-        this.statesCurrent.length = this.size;
-        this.statesNext.length = this.size;
+    // Replace undefined parameters with defaults.
+    var _canvas = canvas || document.getElementsByTagName("canvas")[0],
+        _numberOfStates = numberOfStates || 100.0,
+        _k1 = k1 || 1.0,
+        _k2 = k2 || 1.5,
+        _g = g || 34.0;
+
+    return {
+        start   : _start
+    };
+        
+    // The method that starts the animation.
+    function _start(){
+        _width = _canvas.width;
+        _height = _canvas.height;
+        _size = _width * _height;
+
+        _statesCurrent.length = _size;
+        _statesNext.length = _size;
         
         // Ensure all array indices are populated to prevent slow array access.
-        for(var i=0; i<this.size; ++i)
+        for(var i=0; i<_size; ++i)
         {
-            this.statesCurrent[i] = 0.0;
-            this.statesNext[i] = 0.0;
+            _statesCurrent[i] = 0.0;
+            _statesNext[i] = 0.0;
         }
         
         // Don't seed edges to prevent fixed border states from dominating.
-        for (var y = 1; y < this.height-1; ++y)
+        for (var y = 1; y < _height-1; ++y)
         {
-            for (var x = 1; x < this.width-1; ++x)
+            for (var x = 1; x < _width-1; ++x)
             {
-                this.statesCurrent[x + y * this.width] = Math.floor(Math.random()*(this.NumberOfStates+1));
-                this.statesNext[x + y * this.width] = 0;        
+                _statesCurrent[x + y * _width] =
+                        Math.floor(Math.random()*(_numberOfStates+1));
+                _statesNext[x + y * _width] = 0;        
             }
         }
         
         // Render without waiting for the timer, so that the display is not
         // empty to start with.
-        this.Render();
+        _render();
         
         // Update the display on a timer.
-        var obj = this;
-        setInterval(function(){
-            obj.Tick(obj);
-        }, 100);
-    },
+        setInterval(_tick, 200);
+    };
     
     // The animation timer tick.
-    Tick : function(obj){
-        obj.UpdateStates();
-        obj.SwapStateBuffers();
-        obj.Render();
-    },
+    function _tick(){
+        _updateStates();
+        _swapStateBuffers();
+        _render();
+    };
 
     // Renders one frame of the animation.
-    Render : function(){
-        var canvas = document.getElementById('canvas');
-        var ctx = canvas.getContext('2d');
-        var imageData = ctx.getImageData(0, 0, this.width, this.height);
+    function _render(){
+        var ctx = _canvas.getContext("2d");
+        var imageData = ctx.getImageData(0, 0, _width, _height);
         var data = imageData.data;
 
         var pixelIndex = 0;
-        for(var stateIndex = 0; stateIndex<this.size; ++stateIndex){
-            var value = (this.statesCurrent[stateIndex] * 255) / this.NumberOfStates;
+        for(var stateIndex = 0; stateIndex<_size; ++stateIndex){
+            var value = (_statesCurrent[stateIndex] * 255) / _numberOfStates;
             value = Math.floor(value);
             data[pixelIndex++] = 0;
             data[pixelIndex++] = 0;
@@ -83,30 +97,32 @@ var hodgePodge = {
         }
         
         ctx.putImageData(imageData, 0, 0);    
-    },
+    };
 
     // Updates the Cellular Automata state.
-    UpdateStates : function(){
-        for (var y = 1; y < this.height-1; ++y)
+    function _updateStates(){
+        for (var y = 1; y < _height-1; ++y)
         {
-            for (var x = 1; x < this.width-1; ++x)
+            for (var x = 1; x < _width-1; ++x)
             {
-                var current = this.statesCurrent[x + y * this.width];
+                var current = _statesCurrent[x + y * _width];
                 var numInfected = 0.0;
                 var numIll = 0.0;
                 var sum = current;
 
                 var neighbours = [
-                    this.statesCurrent[(x+0) + (y-1) * this.width],
-                    this.statesCurrent[(x-1) + (y+0) * this.width],
-                    this.statesCurrent[(x+1) + (y+0) * this.width],
-                    this.statesCurrent[(x+0) + (y+1) * this.width]
+                    _statesCurrent[(x+0) + (y-1) * _width],
+                    _statesCurrent[(x-1) + (y+0) * _width],
+                    _statesCurrent[(x+1) + (y+0) * _width],
+                    _statesCurrent[(x+0) + (y+1) * _width]
                 ];
                 
                 for (var i=0; i<neighbours.length; ++i)
                 {
-                    numIll      += neighbours[i] === (this.NumberOfStates - 1) ? 1.0 : 0.0;
-                    numInfected += (neighbours[i] !== 0.0) ? 1.0 : 0.0;
+                    numIll      += neighbours[i] === (_numberOfStates - 1)
+                                    ? 1.0 : 0.0;
+                    numInfected += (neighbours[i] !== 0.0)
+                                    ? 1.0 : 0.0;
                     sum         += neighbours[i];
                 }
                 
@@ -115,10 +131,11 @@ var hodgePodge = {
                 // Healthy.
                 if (current === 0.0)
                 {
-                    nextState = Math.floor(numInfected/this.K1) + Math.floor(numIll/this.K2);
+                    nextState = Math.floor(numInfected/_k1)
+                                + Math.floor(numIll/_k2);
                 }
                 // Ill.
-                else if (current === this.NumberOfStates - 1)
+                else if (current === _numberOfStates - 1)
                 {
                     nextState = 0.0;
                 }
@@ -126,22 +143,22 @@ var hodgePodge = {
                 else
                 {   
                     // Copied from C implementation. Not in book!
-                    nextState = Math.floor(sum / (numInfected + 1.0)) + this.G;  
+                    nextState = Math.floor(sum / (numInfected + 1.0)) + _g;
                 }
 
                 // Ensure state is valid.
-                nextState = Math.min(nextState, this.NumberOfStates - 1);
+                nextState = Math.min(nextState, _numberOfStates - 1);
 
                 // Update state.
-                this.statesNext[x + y * this.width] = nextState;
+                _statesNext[x + y * _width] = nextState;
             }
         }
-    },
+    };
     
     // Swaps the next and current Cellular Automata state buffers.
-    SwapStateBuffers : function (){
-        var temp = this.statesCurrent;
-        this.statesCurrent = this.statesNext;
-        this.statesNext = temp;
-    }
+    function _swapStateBuffers(){
+        var temp = _statesCurrent;
+        _statesCurrent = _statesNext;
+        _statesNext = temp;
+    };
 }

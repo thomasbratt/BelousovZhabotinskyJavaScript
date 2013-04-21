@@ -16,6 +16,22 @@ The algorithm used in the animation is described in Gary William Flake's
 book *The Computational Beauty of Nature*. The animation is based on
 this description, although C code is available (see references section).
 
+Parameters
+----------
+
+The JavaScript HodgePodge class has working defaults, provided a canvas element
+is present on the page.
+
+The default parameters can be overriden in the constructor function, as follows:
+
+	*canvas*      		: The canvas DOM element.
+	*numberOfStates*	: The number of states in the cellular automata.
+	*k1*              	: Controls infection rate of healthy cells by damping
+						  the effect of infected neighbours.
+	*k2*              	: Controls infection rate of healthy cells by damping
+						  the effect of ill neighbours.
+	*g*					: Controls progress of infected cells.
+
 References
 ----------
 
