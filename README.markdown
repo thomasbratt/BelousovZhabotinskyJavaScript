@@ -10,7 +10,9 @@ The code is based on a Windows screensaver, which can be found at:
     https://github.com/thomasbratt/HodgePodgeScreenSaver
     
 The animation uses the HTML 5 Canvas tag, which may not work well with
-some legacy browser versions.
+some legacy browser versions. Perversely, making the canvas element too big
+(1024x768) seems to result in the element not being displayed newer browser
+versions.
 
 The algorithm used in the animation is described in Gary William Flake's
 book *The Computational Beauty of Nature*. The animation is based on
@@ -24,13 +26,13 @@ is present on the page.
 
 The default parameters can be overriden in the constructor function, as follows:
 
-	*canvas*      		: The canvas DOM element.
-	*numberOfStates*	: The number of states in the cellular automata.
-	*k1*              	: Controls infection rate of healthy cells by damping
+	canvas      		: The canvas DOM element.
+	numberOfStates		: The number of states in the cellular automata.
+	k1              	: Controls infection rate of healthy cells by damping
 						  the effect of infected neighbours.
-	*k2*              	: Controls infection rate of healthy cells by damping
+	k2              	: Controls infection rate of healthy cells by damping
 						  the effect of ill neighbours.
-	*g*					: Controls progress of infected cells.
+	g					: Controls progress of infected cells.
 
 References
 ----------
