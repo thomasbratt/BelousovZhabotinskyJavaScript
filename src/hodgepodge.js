@@ -5,6 +5,7 @@
 //
 // Parameters:
 //
+//  palette         : The palette as 256 * 32 bit color values in ARGB order.
 //  canvas          : The canvas DOM element.
 //  numberOfStates  : The number of states in the cellular automata.
 //  k1              : Controls infection rate of healthy cells by damping the
@@ -14,7 +15,8 @@
 //  g               : Controls progress of infected cells.
 // ----------------------------------------------------------------------------
 
-var HodgePodge = function(  canvas,
+var HodgePodge = function(  palette,
+                            canvas,
                             numberOfStates,
                             k1,
                             k2,
@@ -25,7 +27,8 @@ var HodgePodge = function(  canvas,
         _statesNext = [],
         _width = 0,
         _height = 0,
-        _size = 0;
+        _size = 0,
+        _palette = palette;
 
     // Replace undefined parameters with defaults.
     var _canvas = canvas || document.getElementsByTagName("canvas")[0],
@@ -90,10 +93,13 @@ var HodgePodge = function(  canvas,
         for(var stateIndex = 0; stateIndex<_size; ++stateIndex){
             var value = (_statesCurrent[stateIndex] * 255) / _numberOfStates;
             value = Math.floor(value);
-            data[pixelIndex++] = 0;
-            data[pixelIndex++] = 0;
-            data[pixelIndex++] = value;
-            data[pixelIndex++] = 255;
+            // Palette and canvas are both RGBA.
+            // Could probably copy these 32 bits at a time if performance
+            // mattered.
+            data[pixelIndex++] = (palette[value] >> 24) & 0x000000FF;
+            data[pixelIndex++] = (palette[value] >> 16) & 0x000000FF;
+            data[pixelIndex++] = (palette[value] >>  8) & 0x000000FF;
+            data[pixelIndex++] = (palette[value] >>  0) & 0x000000FF;
         }
         
         ctx.putImageData(imageData, 0, 0);    

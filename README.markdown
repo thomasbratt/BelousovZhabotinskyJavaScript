@@ -10,7 +10,7 @@ The code is based on a Windows screensaver, which can be found at:
     https://github.com/thomasbratt/HodgePodgeScreenSaver
     
 The animation uses the HTML 5 Canvas tag, which may not work well with
-some legacy browser versions. Perversely, making the canvas element too big
+some legacy browser versions. Making the canvas element too big
 (1024x768) seems to result in the element not being displayed in newer browser
 versions.
 
@@ -26,12 +26,14 @@ is present on the page.
 
 The default parameters can be overriden in the constructor function, as follows:
 
+	palette         	: The palette as 256 * 32 bit color values in
+						  RGBA order.
 	canvas      		: The canvas DOM element.
 	numberOfStates		: The number of states in the cellular automata.
-	k1              	: Controls infection rate of healthy cells by damping
-						  the effect of infected neighbours.
-	k2              	: Controls infection rate of healthy cells by damping
-						  the effect of ill neighbours.
+	k1              	: Controls infection rate of healthy cells by
+						  damping the effect of infected neighbours.
+	k2              	: Controls infection rate of healthy cells by
+						  damping the effect of ill neighbours.
 	g					: Controls progress of infected cells.
 
 References
