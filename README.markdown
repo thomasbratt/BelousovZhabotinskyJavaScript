@@ -54,7 +54,3 @@ Source Code Repository
 ----------------------
  
 https://github.com/thomasbratt/HodgePodgeJavaScript
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/thomasbratt/hodgepodgejavascript/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
