@@ -7,7 +7,7 @@ chemical oscillator, which sums it up fairly well.
 
 The code is based on a Windows screensaver, which can be found at:
 
-    https://github.com/thomasbratt/HodgePodgeScreenSaver
+    https://github.com/thomasbratt/HodgePodgeScreensaver
     
 The animation uses the HTML 5 Canvas tag, which may not work well with
 some legacy browser versions. Making the canvas element too big
@@ -17,6 +17,8 @@ versions.
 The algorithm used in this animation is described in Gary William Flake's
 book *The Computational Beauty of Nature*. The animation is based on
 this description, although C code is available (see references section).
+
+![Screenshot](screenshot.png)
 
 Parameters
 ----------
@@ -48,9 +50,10 @@ References
 License
 -------
 
-MIT permissive license. See MIT-LICENSE.txt for full license details.     
+MIT permissive license. See LICENSE.txt for full license details.     
      
 Source Code Repository
 ----------------------
  
-https://github.com/thomasbratt/HodgePodgeJavaScript
+https://github.com/thomasbratt/BelousovZhabotinskyJavaScript
+
